@@ -26,7 +26,6 @@ passport.use(new SamlStrategy(
     cert: certificate,
   },
   function (profile, done) {
-    console.log('test')
     return done(null, profile);
   }
 ));

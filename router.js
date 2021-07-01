@@ -28,7 +28,6 @@ router.get('/login/sso',
   }),
 
   function (req, res) {
-    console.log(res, req, "res")
     res.send({
       status: true,
       message: "Success!",
@@ -73,12 +72,9 @@ router.post('/login/sso/callback',
   userAgentHandler,
   passport
     .authenticate('saml', { failureRedirect: '/', failureFlash: true }), (req, res, next) => {
-      // console.log(typeof (req.body.SAMLResponse), "res")
       const xmlResponse = req.body.SAMLResponse;
-      console.log(xmlResponse, "xmlResponse")
       const parser = new Saml2js(xmlResponse);
       req.samlUserObject = parser.toObject();
-      console.log(req.samlUserObject, "Parse")
       next();
     },
   (req, res) => createUserSession(req, res));
